@@ -1,13 +1,13 @@
 package com.ingenico.connect.gateway.sdk.java;
 
+import com.ingenico.connect.gateway.sdk.java.defaultimpl.DefaultAuthenticator;
+import com.ingenico.connect.gateway.sdk.java.defaultimpl.DefaultConnection;
+import com.ingenico.connect.gateway.sdk.java.defaultimpl.DefaultMarshaller;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Properties;
-
-import com.ingenico.connect.gateway.sdk.java.defaultimpl.DefaultAuthenticator;
-import com.ingenico.connect.gateway.sdk.java.defaultimpl.DefaultConnection;
-import com.ingenico.connect.gateway.sdk.java.defaultimpl.DefaultMarshaller;
 
 /**
  * Ingenico ePayments platform factory for several SDK components.
@@ -36,6 +36,17 @@ public final class Factory {
 		} catch (IOException e) {
 			throw new RuntimeException("Unable to load properties", e);
 		}
+	}
+
+	/**
+	 * Creates a {@link CommunicatorConfiguration} based on the configuration
+	 * values in {@code properties} and {@code apiKeyId} and
+	 * {@code secretApiKey}.
+	 */
+	public static CommunicatorConfiguration createConfiguration(Properties properties, String apiKeyId, String secretApiKey) {
+		return new CommunicatorConfiguration(properties)
+				.withApiKeyId(apiKeyId)
+				.withSecretApiKey(secretApiKey);
 	}
 
 	/**
